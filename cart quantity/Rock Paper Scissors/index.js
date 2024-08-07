@@ -3,6 +3,7 @@ let winsEl = document.getElementById("wins-el")
 let lossessEl = document.getElementById("losses-el")
 let tiesEl = document.getElementById("ties-el");
 
+
 let computerMove = ""  
 let result = ""
 let scores = JSON.parse(localStorage.getItem("scores")) || {
@@ -10,7 +11,7 @@ let scores = JSON.parse(localStorage.getItem("scores")) || {
         losses: 0,
         ties: 0
     }
-
+updateScore();
 // if (!scores) {
 //     scores = {
 //         wins: 0,
@@ -69,10 +70,16 @@ function playGame(playerMove) {
       scores.ties += 1;
     }
 
-localStorage.setItem("scores", JSON.stringify(scores));
+    localStorage.setItem("scores", JSON.stringify(scores));
+    updateScore()
 
     alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
 Wins: ${scores.wins}, losses: ${scores.losses}, Ties: ${scores.ties}`)
+}
+
+function updateScore() {
+    let scoreResults = document.getElementById("score-results");
+    scoreResults.innerHTML = `Wins: ${scores.wins}, losses: ${scores.losses}, Ties: ${scores.ties}`;
 }
 
 function rockBtn() {
@@ -89,4 +96,5 @@ function resetBtn() {
     scores.losses = 0
     scores.ties = 0
     localStorage.removeItem("scores")
+    updateScore();
 }
